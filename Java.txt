@@ -1,0 +1,2704 @@
+How Java Handles De-Allocation of Dynamic Block ?
+-------------------------------------------------
+
+Before we can understand how java handles de Allocation of Dynamic blocks, we need to understand two very impt terms:
+
+1. GARBAGE BLOCK (GARBAGE AREA)
+2. GARBAGE COLLECTOR
+
+In Java, if we do not have any reference pointing to a dynamic block, then such a block is called as GARBAGE BLOCK.
+
+In Simple Words we can say that in java if a dynamic block is not more is being referred by any reference then such a block will called as GARBAGE BLOCK.
+
+For ex:
+
+int [] arr = new int[10];//will point to address 5000
+.
+.
+.
+arr = new int[15]; // will point to address 6000
+
+after this operation arr which refferes to address 5000 that is now pointed to 6000 then block that has address 5000 has become GARBAGE BLOCK.
+
+
+GARBAGE COLLECTOR :
+------------------
+In java jvm has interpreter. as it is in jvm has one more software that is called GARBAGE COLLECTOR.jvm sends gc to check for time to time to check and collect which are not reffrenced by any pointer that takes out from there and destroy it.
+in java memory delocation is done by GC which is manage by JVM.
+
+
+In JVM, there is a special s/w or program built into it called as the GARBAGE COLLECTOR . As the same indicates this GC runs occassionally and identifies those blocks which are called GARBAGE BLOCKS in the HEAP AREA.
+
+once it identifies the GARBAGE Blocks then it removes then from the HEAP area and deposites them in the FREE POOL, so that these block can be resused.
+
+But the GC does not runs very frequently, Rather JVM calls it whenever it requires to increase the size of FREE POOL.
+
+Thus the most impt point to remember in this that the ENTIRE PROCESS of GARBAGE COLLECTION is out of control of thr programmer, Moreover the programmer does'nt even know when this MEMORY CLEAN UP activity will take place.
+
+So in Java we say that memory allocation is in hands of programmer buts its deallocation is in the hands of JVM.
+
+
+
+
+
+2D Array
+--------
+
+1) Rectangular 2D Array -> where every row has same no of columns
+
+2) Jagged 2D Array -> Each row can have different no of columns
+
+SYNTAX OF CREATING A RECTANGULAR 2D ARRAY
+-----------------------------------------
+
+1. Declaring the array reference
+        <data type>[][]<array_ref>; // RECOMMENDED
+        OR
+        <data type> <array_ref>[][]; // OK
+        OR
+        <data type> []<array_ref>[];// OK,NOT RECOMMENDED
+
+Example:
+ int [][]arr;
+
+Qn: How will you read the above statement?
+
+Ans: arr is a reference  to an array of reffrences to an array of integers
+
+in 3x4 array will maked by 4 array objects.
+arr = new int[3][4];
+SOP(arr.length); -> 3
+SOP(arr[0].length); -> 4
+SOP(arr[0][0].length); -> Syntax error
+
+JAGGED 2D ARRAY
+---------------
+
+1. Creating array ref
+         <data_type> [][] <array_ref> = new <data_type>[row_size][];
+         or
+         <data_type> [][] <array_ref>;
+         <array_ref> = new <data_type>[row_size];
+
+2. Creating the actual array
+
+     <array_ref> [ row_index]= new <data_type> [col_size];
+     <array_ref> [ row_index]= new <data_type> [col_size];
+     <array_ref> [ row_index]= new <data_type> [col_size];
+
+
+Example:
+
+int [][]arr= new int[3][];
+
+arr[0]=new int[4];
+arr[1]=new int[6];
+arr[2]=new int[3];
+
+SOP(arr.length); -> 3
+SOP(arr[0].length); -> 4
+SOP(arr[1].length); -> 6
+SOP(arr[2].length);-> 3
+
+ACCESSING
+-----------
+arr[0][0]=25;
+arr[0][1]=22;
+
+
+
+
+
+OBJECT ORIENTED PROGRAMMING
+---------------------------------------
+
+What is Object Oriented Programming ?
+====================================
+
+1. It is a methodology / approach of developing programms/software.
+
+2. In this every eomponent is an OBJECT and every OBJECT has 2 impt features.
+        a. Data : Variables used for storng info related to OBJECT.
+        b.method: Methods to process that data
+
+3. For ex: Suppose we have to design an EMPLOYEE MGMT SYSTEM for a company.
+    If we design the software in Object Oriented way, We will first try to find out what types of objects are used in the system.
+
+    A company can have :
+        a. Employees
+        b. Department
+        c. Projects
+        d.Clients
+
+To create each of these objects we will first have to design a CLASS.
+Thus we can say that Object Oriented Programming teaches us to build softwares which can closely IMITATE REAL WROLD  OBJECTS/ENTITIES as well as it offer's a much higher level of SECURITY.
+
+Jitne different types ke objects utne hi classes chahiye hote hain.
+
+
+SYNTAX OF CREATING A CLASS IN JAVA
+==================================
+
+<access specifier> class <class_name>
+{
+    <access_spec> <data_type> <var_name> = <VALUE>;
+    <access_spec> <data_type> <var_name> = <VALUE>;
+    .
+    .
+    <access_spec> <return type> <method_name>=<VALUE>;
+    <access_spec> <return type> <method_name>(<arg_list>)
+    {
+        //method body
+    }
+    
+    <access_spec> <return type> <method_name>(<arg_list>)
+    {
+        //method body
+    }
+    .........................
+
+
+
+}
+
+
+Differences with C++
+--------------------
+
+1.In C++ we never use any access modifies like "public" with class. But java allows us to declare classes as "public" class.
+
+2. In CLASSIC C++ (Trubo) we cannot initialize the data members , but in Java it is totally valid.
+
+3. Access modifier in C++ is used in combined form for all the data or methods having the same access modifier,while in Java access specifier is used separately for all the members.
+
+4. unlike C++, in Java we directly define the methods in the body of the class.
+
+5. In C++ all the members of a class are private by default but in Java all the members of a class are "default" by default.
+
+
+DESIGNING "Student" CLASS
+==========================
+
+// Entity Class
+class Student
+{
+    int roll;
+    char grade;
+    double per;
+}
+
+// Main Class (Driver Class)
+class UseStudent
+{
+    public static void main(string [] args)
+    {
+        // object bhi ban gya aur uska reference bhi ban gya
+
+        Student obj = new Student();
+        // here new initializes all members with initial value to 0
+        obj contain address of student object.
+        here obj referred to student object.
+
+        obj.roll=10;
+        obj.grade='A';
+        obj.per=78.5;
+        System.out.println("Roll="+obj.roll+",Grade="+obje.grade+",Per="+obj.per);
+
+
+    }
+}
+
+Here:
+    Program name : UseStudent.java
+    compile: javac UseStudent.java
+    Run: java UseStudent
+    ByteCode: Created by Java: 2
+
+Modularity: alag alag task ke liye alag alag member function banana.
+
+DRAWBACKS OF THE PREVIOUS CODE
+===============================
+
+Although hthe program will compile as well as run without any errors, but the code is breaking the principles of OOP.
+
+This is because acc to OOP, the data members of class must always be declare/kept as private and should only be accessed via methods of that class.
+
+This is due to the SECURITY REASONS.
+
+But in our code we are accssing roll,grade and per from outside "Student" class;
+
+This is against the principle of ENCAPSULATION , which says that all the data members of a class must only be accessed by its METHODS.
+
+So to make this program follow principles of OOPS we must do below mentioned changes:
+
+1. Declare all the data members of "Student" class as "Private"
+
+2. Define "public" methods in the "Student" class for initializing and displaying the values of data members.
+
+3. from the driver class we can call these methods using the object of "Student" class.
+
+=======================
+
+
+class Student1 {
+    private int roll;
+    private char grade;
+    private double per;
+
+    public void setStudent() {
+        roll = 10;
+        grade = 'A';
+        per = 78.9;
+    }
+
+    public void showStudent() {
+        System.out.println("Roll=" + roll + ",Grade=" + grade + ",Per=" + per);
+    }
+}
+
+public class Lec_26_useStudentProper {
+    public static void main(String[] args) {
+        Student1 obj1 = new Student1();
+        Student1 obj2 = new Student1();
+        obj1.setStudent();
+        obj2.setStudent();
+        obj1.showStudent();
+        obj2.showStudent();
+
+    }
+}
+
+
+although the given upper code which we have designed will work succesfully, but it also has a problem.
+
+the problem is that for both the objects we will get the SAME OUTPUT which in unrealistic.
+
+So to solve this problem , we will have to accept input from user and this can be done in 2 ways:
+
+1. Creating a Scanner object inside the setstudent() method and accepting user input and initializing instance members with it.
+
+import java.util.Scanner;
+
+class Student2 {
+    private int roll;
+    private String name;
+    private double per;
+
+    public void setStudent() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter roll,name,and per : ");
+        roll = sc.nextInt();
+        name = sc.next();
+        per = sc.nextDouble();
+
+    }
+
+    public void showStudent() {
+        System.out.println("Roll=" + roll + ",Grade=" + name + ",Per=" + per);
+    }
+}
+
+public class Lec_26_useStudent1 {
+    public static void main(String[] args) {
+        Student2 obj1 = new Student2();
+        Student2 obj2 = new Student2();
+        obj1.setStudent();
+        obj2.setStudent();
+        obj1.showStudent();
+        obj2.showStudent();
+
+    }
+}
+
+
+OR
+
+2. Creating a Scanner object in the main() method , accepting input there and passing the values as argument to the method setstudent.
+
+import java.util.Scanner;
+
+class Student2 {
+    private int roll;
+    private String name;
+    private double per;
+
+    public void setStudent(int r, String n, double p) {
+
+        roll = r;
+        name = n;
+        per = p;
+
+    }
+
+    public void showStudent() {
+        System.out.println("Roll=" + roll + ",Grade=" + name + ",Per=" + per);
+    }
+}
+
+public class Lec_26_useStudent1 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter roll,name,and per : ");
+        int r = sc.nextInt();
+        String n = sc.next();
+        double p = sc.nextDouble();
+        Student2 obj = new Student2();
+        obj.setStudent(r, n, p);
+        obj.showStudent();
+        sc.close();
+    }
+}
+
+OBJECT INTIALIZATION
+=====================
+
+
+The word "initialization" means setting the values of INSTANCE VARIABLES (data members) of an object at the time of creation of the object. In java to do this we have 3 ways:
+
+1. Explicit initialization
+
+2. Initialization Using CONSTRUCTOR
+
+3. Using Initializer Blocks
+
+
+1. EXPLICIT INITIALIZATION
+---------------------------
+
+It is a fastest way of object initialization.
+we use it in java when you have set a particular data to all objects.
+like rate of interest is same for all objects.
+
+
+class <class_name>
+{
+    <access_mod> <data_type> <var_name>=<value>;
+    <access_mod> <data_type> <var_name>=<value>;
+    ....
+}
+
+Eg:
+in this way we initialize our object members.
+class Account{
+    private int accId=101;
+    private String name="Ashish;
+    private double bal=200000.0;
+    
+    public void showAccount(){
+        SOP(accId+","+name+","+bal);
+    }
+}
+class useAccount
+{
+    public static void main(String []args){
+        // uninitialized reference
+        //local members ko java initialize nhi karti hain
+        Account obj;
+
+        //now java initialize obj
+        // and initialized it with our given value
+        obj=new Account();
+
+        obj.showAccount();
+    }
+}
+
+
+2. CONSTRUCTOR
+===============
+
+In java, just like any other programming language we have the concept of contructors. which are special methods of the class and have the following important features.
+
+1. Their name is exactly same as the name of the class.
+
+2. they do not have any return type , not even void.
+
+3. they are autmatically called by java as soon as the object of a class gets created.Since in java object creation is done by the keyword new so contructor calling is also done by "new".
+
+4. In java, if we mwntion the return type of constructor then no error appears but java will not treat this method to be contructor any more and will handle it as a normal instance method adn will not call it on object creation.
+
+5. If a programmer does not define any constructor of his own , then the java compiler inserts a special contructor in the class as the DFAULT CONSTRUCTOR.
+
+6. Unlike C++, Java does not provie any DEFAULT COPY CONSTRUCTOR.
+
+
+class Student{
+    private int roll;
+    private String name;
+    private double per;
+
+    public Student(){
+        SOP("Constructor calledd ... ");
+    }
+    //Here default values is given by new keyword
+    pblic void show(){
+        SOP("Roll="+roll+" , Name="+name+" , Per="+per);
+    }
+}
+
+class UseStudent
+{
+    public static void main(String []args){
+        Student obj;
+        obj=new Student();
+        obj.show();
+    }  
+}
+
+
+// For proof of constructor we can use command
+// javap student
+
+if we want to initialized it with different values.
+
+PARAMETERIZED CONSTRUCTOR:
+==========================
+
+Just like we can have parameterized methods, similarly we also can have parameterized constructors , That is contructors can also acceept arguments.
+
+But if a constructor is parameterized , then all the objects we are going to crate, must also be parameterized.
+
+
+package lec28;
+
+class Account {
+    private int acctd;
+    private String name;
+    private double bal;
+
+    public Account(int id,String str,double amt){
+        acctd=id;
+        name=str;
+        bal=amt;
+    }
+    // Here default values is given by new keyword
+    public void show() {
+        System.out.println("acctid= " + accId + " , Name= " + name + " , Bal= " + bal);
+    }
+}
+
+class UseAccount {
+    public static void main(String[] args) {
+        Account obj1= new Account(101,"Amit",75000.0);
+        Account obj2= new Account(102,"Sumit",80000.0);
+
+        // Now it gives syntax error
+        // because we made it parameterized constructor
+        Account obj3= new Account();
+
+        obj1.show();
+        obj2.show();
+    }
+}
+
+
+// with user Input
+------------------
+
+package lec28;
+
+import java.util.Scanner;
+
+class Account {
+    private int accId;
+    private String name;
+    private double bal;
+
+    public Account(int id, String str, double amt) {
+        accId = id;
+        name = str;
+        bal = amt;
+    }
+
+    // Here default values is given by new keyword
+    public void show() {
+        System.out.println("acctid= " + accId + " , Name= " + name + " , Bal= " + bal);
+    }
+}
+
+class UseAccount {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("enter accid, name and bal :");
+        int id = sc.nextInt();
+        String str = sc.next();
+        double amt = sc.nextDouble();
+        Account obj1 = new Account(id, str, amt);
+
+        obj1.show();
+        sc.close();
+    }
+}
+
+How will you bring the following output:
+
+OUTPUT:
+=======
+Enter accid, name and Bal
+201
+Hitesh
+50000.0
+
+Enter accid, name and Bal
+202
+Ravi
+75000.0
+
+class Account {
+    private int accId;
+    private String name;
+    private double bal;
+
+    public Account(int id, String str, double amt) {
+        accId = id;
+        name = str;
+        bal = amt;
+    }
+
+    // Here default values is given by new keyword
+    public void show() {
+        System.out.println("acctid= " + accId + " , Name= " + name + " , Bal= " + bal);
+    }
+}
+class UseAccount {
+    public static void main(String[] args) {
+        Account[] A = new Account[2];
+        Scanner sc = new Scanner(System.in);
+        for (int i = 0; i < 2; i++) {
+            System.out.println("enter accid, name and bal :");
+            int id = sc.nextInt();
+            String str = sc.next();
+            double amt = sc.nextDouble();
+            A[i] = new Account(id, str, amt);
+        }
+
+        // for (int i = 0; i < 2; i++) {
+        // A[i].show();
+        // }
+
+        for (Account x : A) {
+            x.show();
+        }
+
+        sc.close();
+    }
+}
+
+
+
+METHOD OVERLOADING
+===================
+
+OVERLOADING in the world of programming means having multiple versions of the same thing. thus Method Overloading is a feature of java programming language which allows to declare/define multiple methods in a class with the SAME NAME.
+
+The most common example of mehtod Overloading in java is println():
+
+CASE 1:
+========
+here we pass integer
+
+int a=10;
+SOP(a);
+
+CASE 2:
+=======
+Here we pass string
+
+String city = "Bhopal";
+system.out.println(city);
+
+in this ways java has multiple println so we can say that java makes overloading on top of println().
+
+
+how Java Solves This ?
+
+OR
+
+which version of println() is called for the following code?
+
+int a=10;
+char ch='x';
+double c=1.7;
+
+System.out.println(a+","+ch+","+c); -> 1 parameter 
+
+POINTS TO REMEMBER
+====================
+
+
+when we overload 2 or more methods, then these methods MUST DIFFER from each other in terms of their arguments and this difference can be of 3 types:
+
+1. Number of arguments
+
+2. Types of arguments
+
+3. order of arguments
+
+java first search for exact match.
+
+class Ovld
+{
+    public void show(int n){
+        SOP("inside show wirh int arg:"+n);
+    }
+    public void show(char ch){
+        SOP("Inside show withc char arg:"+ch);
+    }
+    public void show(String str){
+        SOP("Inside show with String arg:"+str);
+    }
+    public void show(float n){
+        SOP("Inside show with float arg:"+n);
+    }
+}
+
+class UseOvld{
+    public static void main(String [] args){
+        Ovld obj=new Ovld();
+        obj.show('z'); -> char
+        obj.show(12);  -> int
+        obj.show("BHOPAL"); -> string
+        obj.show(2.4f); -> float
+        obj.show(10L); -> float
+        obj.show(2.5); x
+        obj.show(true); x
+         
+    }
+}
+
+SPECIAL NOTE :
+==============
+
+In java also , just like c++, return type has no role play in method overloading.   This means that if 2 or more methods are overloaded then they must differ from each other in terms of their arguments. the difference of return type will not be considered by java for overloading.
+
+
+
+CONSTRUCTOR OVERLOADING :
+=========================
+
+Just like we can overload 2 or more methods, similarly we can also overload constructors. that is in a single class we can have constructors.
+
+But each of these contructors must differ from each other in terms of their arguments and when the object gets created java calls that constructor which EXACTLY/CLOSELY matches with the type of arguments passed while creating the object.
+
+
+class Box
+{
+    private int l,b,h;
+
+    public Box()
+    {
+        l=b=h=0;
+    }
+    public Box(int s)
+    {
+        l=b=h=s;
+    }
+    public Box(int i,int j,int k){
+        l=l;
+        b=j;
+        h=k;
+    }
+    // copy constructor
+    // unlike c++ in java we have to explicitly code this
+    
+    public Box(Box P){
+        l=p.l;
+        b=P.b;
+        h=P.h;
+    }
+    public void show()
+    {
+        SOP(l+","+b+","+h);
+    }
+}
+
+
+class UseBox
+{
+    public static void main(String []args)
+    {
+        box b2= new Box();
+        Box b2 = new Box(10);
+        box b3 = new Box(5,7,9);
+        Box b4= new Box(b3);
+        b1.show();     
+        b2.show();     
+        b3.show();     
+        b4.show();     
+
+    }
+}
+
+IMPT INTERVIEW QUESTION
+=======================
+
+Qn. Are both the following lines same?
+
+Box b4 = new Box(b3);
+1. it will create a new object
+2. then it will called copy contructor of class defined by programmer
+3. Then COPY CONSTRUCTOR will copy the values of the object pointed by b3 to the newly created object to be pointed by b4.
+
+V/S 
+
+Box b4 = b3;
+1. No new object will created .
+2. only a new reference will be created by the name b4 and it will also point to the same address as pointed by b3.
+3. Moreover no constructor call will be done.
+
+
+ARGUMENT PASSING IN JAVA
+=========================
+
+In java , we can pass 2 kinds of arguments to any mehtod:
+
+1. Variables
+2. References
+
+PASSING VARIABLES:
+------------------
+
+1. whenevr we pass a varialbe as argument to a method then Java passes ite value.
+
+2. This value is then recieved by method's formal argument.
+
+3. Now , both the arguments , actual and formal , are holding the same value but their addresses are different.
+
+4. So if we make any change in the formal arguments value IT WILL NEVER CHANGE THE VALUE OF ACTUAL ARGUMENT.
+
+5. So we can say that VARIBALES IN JAVA ARE ALWAYS PASSED USING PASS BY VALUE.
+
+class Demo{
+    public void increment(int i, int j)
+    {
+        i=i+5;
+        j=j+5;
+    }
+}
+
+class UseDemo{
+    public static void main(String[] args){
+        int i=10,j=20;
+        demo obj=new Demo();
+        SOP("Before increasing the value ,i"+i+",j "+j);
+        obj.increment(i,j);
+        SOP("After increasing the value ,i"+i+",j "+j);
+
+
+    }
+}
+
+
+PASSING REFERENCES :-
+---------------------
+
+1. Whenever we pass any reference as argument to a method then java passes the address of the object pointed by that reference.
+
+2. This address is then received by the formal reference.
+
+3. so now the actual ref and the formal fer, both are pointing to the same object.
+
+4. Thus if we make any change in the object's value using formal ref , then this change will be reflected in the original object's value.
+
+5. But we cannot say that it is not pass by reference.
+
+6. This is because if we change the formal reference content (adress stored in the formal ref) and make it point to a new object, then this change will neither effect the actual reference not the original object.
+
+7. so we can say that even REFERENCES IN JAVA ARE PASSED USING PASS BY VALUE.
+
+CONCLUSION: In java all types of argument are passed using PASS BY VALUE.
+
+because java has security has its top featues so java always us pass by value so pass by reference not use in java.
+
+
+
+PASSING OBJECT REFERENCE  :
+=========================
+
+Eg:1
+class Data{
+    private int a,b;
+    public void setdata(int i,int j)
+    {
+        a=i;
+        b=j;
+    }
+    public void showData()
+    {
+        SOP("a="+a+",b="+b);
+    }
+    public void increment(Data P)
+    {
+        P.a=P.a+1;
+        P.b=P.b+1;
+    }
+}
+
+class UseData
+{
+    public static void main(String args[])
+    {
+        Data D=new Data();
+        D.setData(10,20);
+
+        SOP("Before incrementing:");
+        D.showData();
+
+        data Temp=new Data();
+        Temp.increment(D);
+
+        SOP("After incrementing:");
+        D.showData();
+    }
+}
+
+OUTPUT:
+=======
+Before incrementing , a=10,b=20
+After incrementing , a=11,b=21
+
+
+Eg:2
+
+class Data{
+    private int a,b;
+    public void setdata(int i,int j)
+    {
+        a=i;
+        b=j;
+    }
+    public void showData()
+    {
+        SOP("a="+a+",b="+b);
+    }
+    public void increment(Data P)
+    {
+        P=new Data();  // Changes
+        P.a=P.a+1;
+        P.b=P.b+1;
+    }
+}
+
+class UseData
+{
+    public static void main(String args[])
+    {
+        Data D=new Data();
+        D.setData(10,20);
+
+        SOP("Before incrementing:");
+        D.showData();
+
+        data Temp=new Data();
+        Temp.increment(D);
+
+        SOP("After incrementing:");
+        D.showData();
+    }
+}
+
+OUTPUT:
+=======
+Before incrementing , a=10,b=20
+After incrementing , a=10,b=20
+
+
+PASSING ARRAY REFERENCE :-
+==========================
+
+
+SYNTAX:
+
+<access_mod> <return type> <method_name>(<data_type>[]<array_ref_name)
+{
+    //method body
+}
+Eg:-
+
+class Demo {
+    public void doubler(int[] arr) {
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = arr[i] * 2;
+        }
+    }
+
+}
+public class useDemo {
+    public static void main(String[] args) {
+        Demo obj = new Demo();
+        int[] arr = { 10, 20, 30, 40, 50 };
+
+        System.out.println("Before Doubling");
+        for (int x : arr) {
+            System.out.print(x + " ");
+        }
+        System.out.println();
+        obj.doubler(arr);
+        System.out.println("After Doubling");
+        for (int x : arr) {
+            System.out.print(x + " ");
+        }
+        System.out.println();
+
+    }
+}
+
+Qn: WAP to create a class called ArraySum having a method called calculate().
+
+This method should accept an iteger array as argument, should calculate the sum of all array elements and should return that sum.
+
+Finally the main() method should return an array , initialize it with user input and display the sum of all the elements of this array using the method calculate() of arraySum class.
+
+Solution:-
+
+public class ArraySum {
+    public int calculate(int[] brr) {
+        int sum = 0;
+        for (int x : brr) {
+            sum = sum + x;
+        }
+        return sum;
+    }
+
+}
+
+
+import java.util.Scanner;
+
+public class UseArraySum {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int[] arr = new int[5];
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println("enter no:");
+            arr[i] = sc.nextInt();
+        }
+        ArraySum obj = new ArraySum();
+        int result;
+        result = obj.calculate(arr);
+        System.out.println("Sum is : " + result);
+        sc.close();
+
+    }
+}
+
+
+Modify the previous code so that, the method calculate() now returns the average of array elemetns also along with their sum. Finally both sum and average should be displayed by the method main().
+
+Ans: The solution to the problem is that we will have to return an array , because we need to return multiple values.
+
+SYNTAX:
+
+<access_mod> <data_type> [] <method_name> (<list_of_arg>)
+{
+    //method body
+
+    return <array_ref>;
+    or
+    return null;
+}
+
+
+Using the keyword "Static"
+=========================
+
+Qn1. What is static in Java?
+Ans1. "static" is keyword in Java and is called "NON ACCESS MODIFIER"
+
+Qn2. where can we use the keyword static in java ?
+Ans2. In java the keyword static is used in three palces:
+
+a. we can have "static" members in the class.
+b. we can have static methods in the class.
+c. we can have "static" blocks
+
+AN IMPORTANT POINT: Unlike C/C++ languages java does not allow us local variables as "static".
+
+class Demo
+{
+    int a;
+    int b;
+}
+
+1. "a" and "b" are called as instance variable.
+
+2. They will be allocated memory as and when the object of the Demo class will be created.
+
+3. They will have as many copies as we are going to create objects of the Demo class . For ex: If we will create one object of Demo, then "a" and "b" will have a single copy created , if we will create 2 objects of Demo class , then "a" and "b" will have two separate copies and so on.
+
+
+class Demo
+{
+    int a;
+    static int b;
+}
+
+class useDemo
+{
+    psvm(...)
+    {
+        Demo D1=new Demo();
+        Demo D2=new Demo();
+        Demo D3=new Demo();
+
+        D1.a=10;
+        D2.a=20;
+        D3.a=30;
+
+        SOP(D1.a); -> 10
+        SOP(D2.a); -> 20
+        SOP(D3.a); -> 30
+
+        // java converted it  internally with Demo.b
+        D1.b=10;
+        D2.b=20;
+        D3.b=30;
+
+        SOP(D1.b); -> 30
+        SOP(D2.b); -> 30
+        SOP(D3.b); -> 30
+
+    }
+}
+
+1. "a" will stil be called as Instance variable or Instance member but "b" will be called as SHARED VARIABLE or STATIC VARIABLE or CLASS LEVEL VARIABLE .
+
+2. This static variable will be loaded in RAM as soon as the execution of the begins.
+
+3. The variable "b" will have just one copy loaded in RAM irrespective of the number of objects created.
+
+==========================================================
+
+Qn. WAP to create a class called Emp having the following data members:
+    1. age: To hold employee's age
+    2. name : To hold employee's name
+    3. id: To hold every employee id
+
+Also provide following methods in class:
+    1. A parameterized constructor whihc hsould accept 2 argument and initialize age and name with it. Id should be automatically initialized in sequence, starting from 1.
+
+    2. A method called show() to display Id,age and name of emp 
+
+    3. A method called showNextId() to display the id of the next employee which will be recruited.
+
+CONDITIONS
+==========
+
+1. Id generation should be automatic 
+2. Id should be sqequential.
+3. Id should be unique
+4. Id should be continuous
+
+============================================================
+
+class Emp {
+    private int age;
+    private String name;
+    private int id;
+    private static int nextId = 1;
+
+    public Emp(int a, String n) {
+        age = a;
+        name = n;
+        id = nextId++;
+    }
+
+    public void show() {
+        System.out.println(id + "," + name + "," + age);
+    }
+
+    public void showNextId() {
+        System.out.println("Id of the next emp will be:" + nextId);
+    }
+}
+public class UseEmp {
+    public static void main(String[] args) {
+        Emp e = new Emp(21, "Ravi");
+        Emp f = new Emp(24, "Amit");
+        Emp g = new Emp(22, "Ajay");
+        e.show();
+        f.show();
+        g.show();
+
+        e.showNextId();
+        f.showNextId();
+        g.showNextId();
+
+    }
+}
+
+
+Why we declared method "finalize" as protected?
+===============================================
+
+Object class is made by java. which is in the package of java.lang. It is applicable on whole java ecosystem.
+each and every class automatically inherits Object class.
+11 methods are there in Object class.
+
+( java.lang.Object ).
+
+while overriding we have to sure that prototype should be same as it is declared in Object class.
+
+object = instance
+Object = class
+
+1. In java there is a special class called as AObject, avilable in the java.lang .
+
+2. If we design a class in java which does not explicitly inherit any other class then java automatically makes our class the child class of the Object.
+
+3. This means that every class (predefined or user defined) always inherits from object class eithher directly or indiretly.
+
+4. The class Object has 11 methods since every class inherits the Object class , so every class in Java also inhetrits these 11 methods.
+
+5. Amongst these methods there is a method called "finalize()".
+
+6. This method is called by the GARBAGE COLLECTOR whenever it removes an object from the memory.
+
+7. But the "finalize()" method has a blank body in the Object class.
+
+8. So if a developer wants to execute a set of statements on object destruction then he must override the method finalize() in his class.
+
+9. while overriding we have to keep the prototype same , as given by the parent class and in the class Object the prototype of the "finalize()" method is :
+
+protect void finalize()
+
+
+STATIC METHOD
+=============
+
+In java , just like we have static data members, similarily we also have the concept of static methods.
+
+That is , we can declare methods of a class also as "static" and there are 2 programming situations when Java STRONGLY ADVICES us to make method as "static":
+
+1. If a method in a class is ACCESSING/MANIPULATING only "satic data member" of that class, then such method must be declared as "static".
+
+2. The benifit will be that we will not be required to create any object of the class while calling that method as "static" members can be accessed by just using class name.
+
+3. In our case the method showNextId() beongs to this category.
+4 So the new way of defining nd calling showNextId() is:
+
+public static void showNextId()
+{
+    --nextId;
+}
+
+calling
+=======
+Emp.showNextId;
+
+
+SPECIAL RULE : A static methods is not allowed to access any non-static data of the class.
+
+instance member static ,method me acceess nhi hote hain.
+
+class MyMath
+{
+    public int add(int a,int b)
+    {
+        int c;
+        c=a+b;
+        return c;
+    }
+    public int max(int a,int b)
+    {
+        int c=(a>b)?a:b;
+        return c;
+    }
+}
+ 
+UseMymath
+{
+    public static void main(string [ ] args)
+    {
+        // yaha class me koi data members hi nhi hai in MyMath class to ham fizool ka MyMath ka reference kyu le jo faltu ka sapce legi
+        // to isliye yaha ham MyMath ke mthod ko static kar denge
+        MyMath m;
+        m= new MyMath();
+        SOP("Sum of 10 and 20 is "+m.add(10,20));
+        SOP("Max Value amongst 5 and 3 is :"+m.max(5,3));
+    }
+}
+
+
+Although the above code will display correct output , but it is designed illogicaly, this is because the class MyMath is having no instance members , still we have made the methods add() and max() as static and due to this unnecessarily we have to create ojbect of MyMath class for calling these methods.
+
+The improvement to this situation is to declare the methods add() and max() as "static".
+Due to this we can call these methods without nothering to create any object reference or eny object of MyMath class.
+
+Improvise version
+==================
+
+class MyMath
+{
+    public static int add(int a,int b)
+    {
+        int c;
+        c=a+b;
+        return c;
+    }
+    public static int max(int a,int b)
+    {
+        int c=(a>b)?a:b;
+        return c;
+    }
+}
+ 
+UseMymath
+{
+    public static void main(string [] args)
+    {
+        
+        SOP("Sum of 10 and 20 is "+MyMath.add(10,20));
+        SOP("Max Value amongst 5 and 3 is :"+MyMath.max(5,3));
+    }
+}
+
+
+NOTE
+====
+
+Method ko static tb karna chahiye jab apkiclass ke ander koi v instance memebr na ho.
+
+
+
+Guess the output
+================
+
+
+class Demo
+{
+    // Here a is instance variable
+    private int a =10;
+    public static void main(string []args)
+    {
+        SOP(a); // Gives error cannot access non-tatic member from a static context
+    }
+}
+
+Solution 1: declare 'a' as static
+class Demo
+{
+    // Here a is instance variable
+    private static int a =10;
+    public static void main(string []args)
+    {
+        SOP(a); 
+    }
+}
+
+Solution 2:
+class Demo
+{
+    // Here a is instance variable
+    private  int a =10;
+    public static void main(string []args)
+    {
+        Demo obj = new Demo();
+        SOP(obj.a); 
+    }
+}
+
+
+Using "static" blocks
+======================
+
+1. A static block is block created inside class body , but outsize any method, using the keyword "static".
+
+2. Syntax:
+    class <class_name>
+    {
+        .....
+        static
+        {
+
+        }
+    }
+3. These blocks are autmatically executed by java and that too only once.
+
+4. They are executed when we make FIRST USE OF THE CLASS.
+
+what is the FIRST USE?
+======================
+
+1. Acc to java , FIRST USE of a class happens when we take any of the following actions for the first time:
+
+a. we create first object of the class
+
+OR
+
+b. we access any static members of the class for the first time.
+
+
+
+1. Acc to java, FIRST USE 
+
+class Account
+{
+    private int accid;
+    private String name;
+    private double bal;
+    private static double rateOfInt;
+
+    //Declare static block
+    // do khasiyat hai 
+    // 1. Runs autmatically
+    // 2. Runs only once and that happens when we make FIRST USE of the class.
+
+
+    static
+    {
+        //code for inputing rateOfInt
+
+    }
+}
+
+
+Guess the output
+================
+
+class Student
+{
+    public static int max_marks=100;
+    public Student(){
+        SOP("Constructor called..");
+    }
+    static
+    {
+        SOP("Static block is called .. ");
+    }
+}
+
+class UseStudent
+{
+    public static void main(String []args)
+    {
+        SOP("Max marks ="+Student.max_marks);
+        Student s1=new Student();
+        Student s2=new Student();
+        Student s3=new Student();
+
+        O/P-
+
+        // first run static block
+        // then it shows max_marks
+        // then constructor is running
+
+
+    }
+}
+
+
+The "this" Reference 
+====================
+
+
+class Emp
+{
+    // instance variable or Data Member 
+    private int age;
+    private String age;
+    private double sal;
+
+    public void setEmp(int a,String n,double s)
+    {
+        age=a;
+        name=n;
+        sal=s;
+    }
+    public void displayEmp()
+    {
+        SOP(age+","+name+','+sal);
+    }
+}
+class UseEmp
+{
+    public static void main(String []args)
+    {
+        Emp e=new Emp();
+        Emp f=new Emp();
+
+        e.setEmp(23,"Neeraj",70000);
+        f.setEmp(34,"Ravi",55000.0);
+
+        e.displayEmp();
+        f.displayEmp();
+
+    }
+}
+
+1. "this" is a special objct reference , which is also a keyword.
+
+2. "this" is automatically created by java in a method's argument, as soon we call that method.
+
+3. "this" stroes the memory address of the CURRENT OBJECT (the object on which the method has been called ) .
+
+What are the benifits of using "this"?
+======================================
+
+1. By using "this" we can resolve the overlapping of instance variables of a class done by the local varialbles of a method with the same name.
+
+2. By using "this" we can perform CONSTRUTOR CHAINING.
+
+while doing constructor chaining we must remember 2 things:
+
+1. Only constructor can call other constructor of the same class using "this()".
+
+2. The statement which performs constructor chaining must be the first statement of the body of the constrctor.
+
+
+
+jab ek constrctor dusreconstructor ko call kartta hai to use constructor chaining bolte hai.
+
+conttructor calling ka hak sirf constructor ko mila hai mtlb ham ek constrctor ko sirf ek dusra contructor hi call kar skta hai.
+
+agar this ka use karke constrctor chaining karte hai to this keyword wala statement us constrctor ka pahla statement hona chhaiye.
+
+
+x---------------- INHERITANCE ----------------x
+
+Qn What is inheritance?
+
+Ans: Inheritance is a technique using which can aquire the FEATURES of an existing class/object in a newly created class/object.
+
+class Fruit
+{
+    // data
+    //methods
+}
+// As per OPP, the class Orange MUST inherit the class fruit so that all the features (data & methods ) of the fruit class get inherited in Orange class also.
+
+class Orange extends Fruit
+{
+
+}
+
+BENIFITS OF INHERITANCE:
+=======================
+
+1. Reusability : The child class programmer is not require to rewrite those methods or data again which have allready been designed by the parent class programmer.
+
+2. Maintainability : Easy to incorporate changes in the code.
+
+TERMINOLOGIES USED IN INHERITANCE:
+=================================
+
+1. The class which gets inherited is known by 3 names :
+
+    a. PARENT CLASS ---> OOP TERMINOLOGY
+    b. BASE CLASS --> C++ TERMINOLOGY
+    c. SUPER CLASS ---> JAVA/PYTHON TERMINOLOGY
+
+2. The class which inherits is also known by 3 names:
+
+    a. CHILD CLASS --> OOP
+    b. DERIVED CLASS ---> C++
+    c. SUB CLASS -----> JAVA/PYTHON
+
+TYPES OF INHERITANCE IN OOP:
+
+1. Single 
+2. Multilevel
+3. Multiple
+4. Hierarchical
+5. Hybrid
+
+But java supports only 3 of them:
+
+1. Single
+2. Multilevel
+3. Hierarchical
+
+JAVA DOES NOT SUPORT MULTIPLE INHERITANCE AND THUS IT ALSO DOES NOT SUPPORT HYBRID INHERITANCE.
+
+SYNTAX OF INHERITANCE IN JAVA : 
+==============================
+
+class <class_name> // super class
+{
+    // body of class
+}
+here super class and this can be only one!
+In java unlike c++ we do not have MODES OF INHERITANCE.
+class <class_name> extends <class_name>
+{
+    // body of child class
+}
+
+
+
+using "super" keyword
+=====================
+
+class A
+{
+    public void display()
+    {
+        .............
+    }
+}
+class B extends A 
+{
+    public void display()
+    {
+        ..............
+    }
+    public void  show()
+    {
+        display();
+        super.display();
+    }
+}
+
+Using The keyword "super"
+=========================
+
+In java , the keyword "super" is user by a CHILD CLASS for EXPLICITYLY(using dot operator) refering the members of its PARENT CLASS.
+
+Using "super" in general is optional but in 2 special cases, using "super" becomes compulsory:
+
+1. For calling constructor of PARENT class from CHILD.
+
+2. for resolving method overriding.
+
+Using "Super" for Constructor calling
+====================================
+
+1. In java , whenever we create an object of child class, then java executes constructors of both the parent as well as the child.
+
+2. Amongst them, the first constrctor call is made to parent class immediately followed by the constructor of child class.
+
+3. Now if the constrctor of PARENT class is NON PARAMETERIZED, then java itself handles this calling.
+
+4. But if the PARENT class constrctor is PARAMETERIZED, then java WANTS THE PROGRAMMER TO CALL the PARENT CLASS constructor from the CHILD CLASS CONSTRUCTOR, using the KEYWORD super.
+
+5. This means that if the constructor of parent class is parameterized then, the child class programmer is BOUND to do 2 activities:
+
+    a. He must definea constrctor in CHILD CLASS.
+    b. from the body of CHILD CLASS CONSTRUCTOR , the programmer MUST call the PARRENT CLASS constructor.
+
+Moreover, the if we are using "super" for constructor calling then it should be the FIRST LINE of the body of child class construtor.
+
+EXECUTION OF NON PARAMETERIZED CONSTRUCTOR
+------------------------------------------
+
+package lec37;
+
+class A {
+    public A() {
+        System.out.println("In constrctor of A");
+    }
+}
+
+class B extends A {
+    public B() {
+        System.out.println("In programmer of B...");
+    }
+}
+
+class UseB {
+    public static void main(String[] args) {
+        B obj = new B();
+    }
+}
+
+o/p :-
+In constrctor of A
+In programmer of B...
+
+
+Qn:-
+----
+
+// this is programmer class
+// what are the things which is add by java compiler.
+class Sample
+{
+
+}
+
+converted by java:-
+
+import java.lang.*;
+class Sample extends Object
+{
+    public Sample()
+    {
+        super();
+    }
+}
+
+
+
+Qn:-
+----
+
+class Sample extends Student
+{
+
+}
+
+converted into :-
+
+// compiler modified code
+
+import java.lang.*;
+class Sample extends Student
+{
+    public Sample()
+    {
+        super();
+    }
+}
+
+
+
+What is Method overriding ?
+==========================
+
+whenever a child class contains a methood with the same prototype as the parent class, then we say that the method of child class has OVERRIDDEN the method of parent class.
+
+class Fruit
+{
+    public void taste()
+    {
+        SOP("sweet");
+    }
+}
+
+// Here Grapes class overriden taste method of fruit class.
+class Grapes extends Fruit
+{
+    public void taste()
+    {
+        SOP("citrus");
+    }
+}
+
+// Banana has not overriden the method taste().
+class Banana extends Fruit
+{
+
+}
+
+Use of  Super in method overriding :-
+----------------------------------
+
+Now suppese we want that for Grapes object, after citrus , sweet should also be displayed . Then for this we will use "super".
+
+class Fruit
+{
+    public void taste()
+    {
+        SOP("sweet");
+    }
+}
+class Grapes extends Fruit
+{
+    public void taste()
+    {
+        SOP("citrus");
+        super.taste();
+    }
+}
+
+why we override a super class method ?
+-------------------------------------
+
+Sometimes, it happens that we may not want the body of a super class method to run as it is for the child class object. That it, we might want to change its implementation.
+
+For ex: the class Fruit contains a method called taste() with a message "sweet", but suppose the child class of Fruit is Grapes and Grapes are generally citrus fruit.
+
+So in this case the programmer of Grapes class will REDIFNE the method taste() in his class and this redefining is called as OVERRIDING.
+
+How super playes the role in overriding ?
+----------------------------------------
+
+If the child class has overriden a method of parent class , but due to some reson now the programmer of child class also wants to esecute the version of parent class of overriden method.
+
+In this case he will use super and the syntax will be:
+
+super.<method_name>(<list_of_arg>);
+
+
+
+
+Method Overriding V/S Metod Overloading
+=======================================
+
+1. Method Overloading can be done wither within the same class or between methods of PARENT & CHILD class.
+
+but
+
+Method overriding can ever be done withing a single class and it always requires INHERITANCE i.e overriding can be done between methods of PARENT & CHILD only.
+
+2. Method voerloading says method must have same name , but COMPULSORILY  different arguments.
+
+but
+
+Overriding says method MUST COMPULSORILY have exactly same prototype. Although overriding allows CO-VARIENT return types.
+
+
+RELATION BETWEEN "super" CLASS REFERENCE AND "sub" CLASS OBJECT
+==================================================
+
+class person
+{
+
+}
+
+class Student extends person
+{
+
+}
+
+Student s = new Student(); // valid statement
+Person P = new Person(); // valid statement
+
+Even this is also valid:
+
+Person p = new Student(); // perfectly Valid
+
+Note :- In java world the reference of super class has full right to point to the object of its direct/indirect "sub class".
+
+Ex:
+
+class Fruit
+{
+
+}
+class Orange extedns Fruit
+{
+
+}
+
+Fruit f = new Orange(); // OK
+every orange is a fruit
+
+Orange o= new Fruit(); // Error , because not every fruit is orange.
+
+
+
+Eg:
+
+Class Emp
+{
+    private double sal;
+    public void setSal(...)
+    {
+        ..........
+    }
+}
+
+class Manager extends Emp
+{
+    private double bonus;
+    public void setBonus(.....)
+    {
+        .........
+    }
+}
+
+Emp e= new Manager(); // OK
+e.setSal(50000.0); // OK
+
+e.setBonus(25000.0);//Error
+
+
+
+
+NOTE:-
+
+1. In java , there is a special rule regarding ref of super class and the object of sub class.
+
+2. The rule is that a super class ref can always point to its child class object That is , if we have 2 classes called emp and Manager and the Manager inherits the Emp class, then the following statement is perfectly valid in java:
+
+emp e= new Manager();
+
+3. This is because all the properties of Emp will be inherited by Manager , so java allows as Emp fererence to point to a Manager Object.
+
+4. But its reverse is not true. That is , a child class ref cannot point its parent class object. So the following will give SYNTAX ERROR:
+
+Manager m= new Emp(); // ERROR
+
+5. But when a super class reference points to a child class object , then their is another rule we must remeber and the rule is that the super class reference pointing to child class object is only allow to access those method or properties which have been inherited from the parent class in the child class and not those methods or properties which have been added by the child class.
+
+6. For ex, if the Emp class has a method called setSal() and the Magaer class has another method called setBonus(), then an Emp ref pointing to a Manager object can call setSal(), but can never call setBonus().
+
+Emp e=new Manager();//OK
+
+e.setSal(5000.0); // OK
+
+e.setBonus(25000.0); // ERROR
+
+
+
+POLYMORPHISM :-
+===============
+( Dynamic method Dispatch / Run Time Polymymorphism)
+
+
+class Circle
+{
+    double area()
+    {
+        
+    }
+} 
+class Rectangle
+{
+    double area()
+    {
+
+    }
+}
+class Triangle
+{
+    double area()
+    {
+
+    }
+}
+
+How will you call all three area() methods defined above ?
+
+Circle c= new Circle();
+c.area();
+
+Rectangle r=new Rectangle();
+r.area();
+
+Tirangle t=new Triangle();
+t.area();
+
+Here we can see that without Polymorphism we have to create 3 reference to achieve this task.
+but if we use the concept of polymorphism then it only takes one reference but for this we have to make a super class on top of Circle, Rectangle, Triangle called Shape.
+
+Shape s= new Circle();
+s.area();
+
+s=new Rectangle();
+s.area();
+
+a=new Tirangle();
+s.area();
+
+
+
+
+BINDING :-
+==========
+
+The word "binding" in programming means the mechanism followed by a compiler using which it decides which function body should be executed on which function call.
+
+OR
+
+The way compiler handles METHOD CALL EXECUTION is called binding.
+
+In Java , there are 2 types of "binding":
+
+a. EARLY BINDING / COMPILE TIME BINDING / STATIC BINDING
+
+b. LATE BINDING/RUNN TIME BINDING / DYNAMIC BINDING.
+
+EARLY BINDING
+=============
+
+1. If the method being called is STATIC by nature , then java selects the method by considering the "Type of reference " and not the "type of object" pointed by that reference.
+
+2. For ex: If we have a super class and a sub class and both of them contain the same "static" method. Now if we create a super class ref and make it point to sub class object and then we call the static method using that reference , then java will execute the "super" class version of the mehtod.
+
+why?
+This is because for sTATIC MEHTODS ,java ALWAYS CONSIDERS THE REFERENCE TYPE while selecting the method and not the type of object pointed by the reference.
+
+
+In our case reference is of super class, so java will execute the super class version of "static mehtod".
+
+Since this binding is done by java by looking at the reference , so it is called as "static" binding or "compile time binding" or "early binding" because reference in Java are always created at compile time.
+
+
+LATE BINDING :-
+===============
+
+1. if the method being called is a NON STATIC  method or INSTANCE METHOD, then java selects the method by looking at the type of object pointed by the reference but not the type of reference itself.
+
+2. For ex: If we have a super class and a sub class and both of them contain the same "non static" method. Now if we create a super class ref and make it point to sub class object and then when we call the non static method using that reference , then java will execute the "sub" class version of the mehtod.
+
+why?
+
+This is because for NON STATIC METHODS java uses types of object, and in this case object is of sub class, so the method executed will also be of the subclass.
+
+Since Java is deciding the method to be executed using object and objects are created at run time so this type of binding is also called as DYNAMIC / RUNTIME BINDING.
+
+Another point to understand is that if we are able to execute "sub" class method using "super" class reference then it is called as DYNAMIC METHOD DISPATCH or RUN TIME POLYMORPHISM.
+
+
+
+
+Eg:-
+
+Fruit f;
+f=new Banana();
+f.taste(); banana taste() -> Diff output
+
+f=new Orange(); 
+f.taste(); // Orange taste() - diff output
+
+same syntax different output is called here run time polymorphism...
+
+
+
+Abstract Method & Abstract Class :-
+===================================
+
+Qn : - What is an abstract method ?
+Ans:- A method without any definiton in the super class is called as an ABSTRACT METHOD.
+
+Qn. When we shoul declare a method as abstract ?
+Ans. There are situations when we have a method in our SUPER class which cannot be implemented properly due to lack of information. but we need this method for achieving run time POLYMORPHISM , so in this case we must declare the method as ABSTRACT.
+
+For ex:
+
+Suppose we have a class called Animal, which has a method called eat().
+
+Now we cannot define a general body for eat() . because different types of animals eat different types of food. Like cows or other herbivores animals eat grass/vegetables etc. On the other hand lions and other carnivores animals might eat only flesh.
+
+But we know that ANIMALS DO EAT.
+
+Thus we must declare the method eat() as abstract in the super class.
+
+Qn. How do we declare a method as abstract?
+Ans. To make a method ABSTRACT we have to use the keyword abstract ( which is also called as NON-ACCESS MODIFIER) with the following syntax:
+
+<access_mod> abstract <ret_type> <method_name> (<arg>);
+
+or
+
+abstract <access_mod> <ret_type> <method_name> (<arg>);
+
+For ex:
+
+public abstract void greetings();
+
+or
+
+abstract public void greetings();
+
+
+SOME IMPORTANT POINTS TO REMEBER IF WE ARE DECLARING ABSTRACT METHOD.
+=====================================================
+
+1. To make a method abstract it is compulsory to use the keyword abstract while Declaring the method.
+
+2. An abstract mehtod should never have a BODY in the class where it is declared abstract.
+
+3. If a method declared as abstract, then the class in which we have declared that method MUST ALSO be declared as ABSTRACT CLASS.
+
+For ex:
+
+class A
+{
+    public abstract vois show();
+}
+The above code will not even compile
+
+Soln:
+
+    abstact class A
+    {
+        public abstract void show();
+    }
+Now the code is perfect..
+
+
+4. If a class is "abstract" then Java never forces us to declare and abstract method in that class.
+
+for ex:
+
+abstact class A 
+{
+    public void show()
+    {
+        ...........
+        ...........
+    }
+} 
+The code is perfect!!
+
+5. If a class has been declared as abstract , then WE ARE NOT ALLOWED TO INSTANTIATE THAT CLASS.
+However we can create its reference.
+Assuming that class A  is abstract , then:
+
+A obj; // OK, will compile
+obj=new A(); // ERROR
+but it can point to chind class object.
+
+
+6. If a class INHERITS an ABSTRACT class, then Java forces the programmer to follow either of the following rules:
+
+A. Either the programmer must override all the ABSTRACT METHODS inherited from the super class in the child class.
+
+OR.
+
+B.  If he does'nt override all the ABSTRACT METHODS inherited from the super class then He must declare the child class also as abstract.
+
+class Animal
+{
+    public abstract void eat();
+    public abstact void fly();
+}
+
+// CONCRETE CLASS
+class Pigeon extends Animal
+{
+    public void eat()
+    {
+        ....
+    }
+    public void fly()
+    {
+        ....
+    }
+}
+
+// Gives error that it doesnt override fly()
+// Error : Elephant must be declare as abstract.
+class Elephant extends Animal
+{
+    public void eat()
+    {
+        .......
+    }
+
+}
+
+Qn1: Can abstact classes contain CONSTRUCTOR?
+Ans: Yes , an abstract class can not only contain constructor but also normal methods. This is because although these methods or constructors will be of no use for an abstract class itself because we cannot create any object of an abstract class, but when we inherit an abstract and create an object of the child class of the abstract class, then the constructor of abstact class as well its other methods will be used.
+
+
+
+
+
+Qn2: What all methods CAN NEVER BE DECLARED as ABSTRACT?
+Ans: Following are the methods which can never be declared as abstract:
+
+A. static methods
+B. constructors
+C. private methods
+D. final methods
+
+1.static method
+
+class A
+{
+    public static abstract void show();
+}
+class B extedns A
+{
+    public static void show(){
+        ........
+    }
+}
+
+class Test
+{
+    public static void main(String []args)
+    {
+        A ref=new B();
+        //Error
+        ref.show();
+    }
+}
+
+Using The keyword "final"
+=========================
+
+In Java the keyword "final" is a NON ACCESS MODIFIER and can be used at 3 places:
+
+1. We can have "final" data members
+2. We can have "final" methods
+3. we can have "final" classes
+
+1. What are "final" data members?
+--------------------------------
+
+
+class Circle
+{
+    private ind rad;
+    private double pi=3.14;
+
+    public void setRadius(int r)
+    {
+        radius =r;
+    }
+    public void area()
+    {
+        double ar;
+        ar=++Pi*rad*rad;
+        SOP("Area ="+ar);
+    }
+}
+
+class UseCircle
+{
+    public static void main(String []args)
+    {
+        Circle obj=new Circle();
+        obj.area();
+    }
+}
+
+Althouh the given code will compile and run but if we closely obsrve it, we will find that it is logicaly INCORRECT CODE.
+
+Because the code is attempting to change the valuye of pi, which is a mathematical constant.
+
+But if we want Java to generate error for such codes, then we must declare pi as a final variable.
+
+Improved code
+-------------
+
+class Circle
+{
+    private ind rad;
+    private final double pi=3.14;
+
+    public void setRadius(int r)
+    {
+        radius =r;
+    }
+    public void area()
+    {
+        double ar;
+        ar=++Pi*rad*rad; // Syntax Error 
+        SOP("Area ="+ar);
+    }
+}
+
+class UseCircle
+{
+    public static void main(String []args)
+    {
+        Circle obj=new Circle();
+        obj.area();
+    }
+}
+
+final data members are those which can never be changer once they have been initialized.
+
+In other words , we can say that they are just like constant.
+
+Points to Remeber about "final" data Members :-
+----------------------------------------------
+
+class Circle
+{
+    private int rad;
+    rivate final double pi; // Syntax error
+}
+
+1. If a Data memebr is declared as final then it is programmers responsiability to initialize them.
+2. We can initialize "final" data members of a class either of the following 2 places:
+
+    A. At the declaration point
+    OR
+    B. Inside the body of the constrctor
+
+class Circle
+{
+    private ind rad;
+    A. // private final double pi=3.14;
+    private final double pi;
+    public Circle
+    {
+      B. //  pi=3.14;
+    }
+
+    public void setRadius(int r)
+    {
+        radius =r;
+    }
+    public void area()
+    {
+        double ar;
+        ar=++Pi*rad*rad; // Syntax Error 
+        SOP("Area ="+ar);
+    }
+}
+
+
+Qn: Can we declare "static" data members as "final" ?
+
+Ans: Yes, we can declare "static" members as final or vice versa.we do this when we want only a SINGLE COPY of a particular member and we also do not want its value to be changed.
+
+For max_marks in the lec40 code must be declare as "static" and "final".
+
+SPECIAL POINT: If we are declaring a member as "static" and "final" both, then Java strongly recommendeds that we must declare that Member in totally UPPER CASE.
+
+
+class Student {
+    private final int rollno;
+    private int marks;
+    private double per;
+    private final static int MAX_MARKS = 100;
+
+    ....
+    ....
+}
+
+
+what are "final" methods ?
+--------------------------
+
+In java a "final" method is a method which can NEVER BE overriden by child class.
+
+class A 
+{
+    public void show()
+    {
+        .......
+    }
+    public final void display()
+    {
+        ........
+    }
+}
+
+class B extends A 
+{
+    public void show()
+    {
+        ......
+    }
+    public void display() // here java gives syntax error
+    {
+        ......
+    }
+}
+
+SPECIAL POINT : if a method has been declared as "final" , then if needed then java compiler can make this method INLINE also.
+
+
+
+What are "final" classes?
+-------------------------
+
+Java allows us to declare and entire class as "final". And if we do that , then Java does not allow the class to be inherited.
+
+That is a class which is "final" cannever be sub-classed.
+
+final class A 
+{
+    public void show()
+    {
+
+    }
+    public void display()
+    {
+
+    }
+}
+class B extends A // Gives syntax error 
+{
+
+}
+
+but we can use it by creating the object of final class.
+
+Many popular classes of Java are "final" like:
+
+String
+All Wrapper classes like
+Integer 
+Double 
+Float 
+Math
+
+
+                INTERFACE
+                =========
+
+
+What is an Interface ?
+
+1. An interface in Java just like a class (ABSTRACT CLASS)
+
+2. Just like an ABSTRACT an interface also can contain variables and methods . But every variable declared in an interface is automatically made PUBLIC  STATIC FINAL by java compiler.
+similarily if we declare any method in an interface then (prior to Java 8) then the compiler automatically declares it PUBLIC and ABSTRACT.
+
+3. Just like an ABSTRACT class, an interface can never be   INSTANTIATED but we can create its reference.
+
+4. Just like we can inherit an ABSTRACT class in another class, similarily we can inherit an INTERFACE in another class and then the reference of the INTERFACE can point to the object of its CHILD CLASS.
+
+5. If a class inherits an interface, then it must compulsorily override every abstract method inherited from that interface, otherwise the programmer will have to prefix the class also as abstract.
+
+6. In java it is allowed for a class to inherit multiple interface at once and due to this we can say that interface to certain extent is a solution for achieving MULTIPLE INHERITANCE in java.
+
+7. Using an interface reference we can point to the object of its child class and also we can call those interface methods which have been overriden by the child class. Thus we can say that interface helps us to achieve RUN TIME POLYMORPHISM or DYNAMIC METHOD DISPATCH.
+
+8. From Java 8 onwards an interface can contain CONCRETE METHODS but we have to prefix these methods with the keyword default.
+
+9. From Java 8 onwards an interface can contain STATIC METHODS but these methods must have a body.
+
+10. From Java 9 onwards an interface can have private mehtods .
+
+interface A 
+{
+    int x=10;
+    void show();
+}
+
+it converts it into added by compilers .
+these keywords are added by the Java compiler on its own
+
+interface A 
+{
+    public static final int x = 10;
+    public abstract void show();
+}
+
+
+SYNTAX OF DECLARING AN INTERFACE.
+=================================
+
+interface <name_of_interface>
+{
+    <data type> <var_name>=<value>;
+    // var_name should be in capital letter
+
+    <return type> <method_name>(<arg>);
+    .....
+    .....
+}
+
+A CLASS INHERITING THE INTERFACE
+
+class <class_name> implements <interface_name>
+{
+    // Overridden body of methods of Interface
+
+}
+
+A CLASS INHERITING BOTH A CLASS AND INTERFACE
+
+class <class_name> extends <class_name> implements <interface_name>
+{
+    // body of the class
+}
+
+
+WAP to create an interface called Figure, having 2 members:
+---------------------------------------------------
+
+
+1. A method called getName(), which returns the name of Figure
+2. A method called area(), which returns the area of the Figure
+
+Now create thow child classes called Rectangle nd Circle. These classes should override both the methods of the interface and using RUN TIME POLYMORPHISM call these methods.
+
+
+
+            IMPLEMETING MULTIPLE INHERITENCE USING INTERFACES
+            ---------------------------------------
+
+
+interface Animal
+{
+    void run();
+}
+interace Reptile
+{
+    void swim();
+}
+class Crocodile implements Animal,Reptile
+{
+    public void run()
+    {
+        SOP("Crocodile Running...");
+    }
+    public void swim()
+    {
+        SOP("Croc Swimming");
+    }
+}
+class UseCroc
+{
+    public static void main(String [] args)
+    {
+        Crocodile obj = new Crocodile();
+        obj.run();
+        obj.swim();
+    }
+}
+
+
+
+INHERTING AN INTERFACE INTO ANOTHER 
+-----------------------------------
+
+interace X 
+{
+    ..........
+    ..........
+}
+interface Y extends X
+{
+    ........
+    ........
+}
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+interface A 
+{
+    ....
+    ....
+}
+interface B 
+{
+    ....
+    ....
+}
+
+interface C extends A,B 
+{
+    ....
+    ....
+}
+
+Now if a class implements the interface "C" then it must compulsorily override all the methods of interace A, all the methods of interace "B" as well as the methods of interface "C".
+
+
+
+interface Animal
+{
+    void run();
+}
+interace Reptile
+{
+    void swim();
+}
+interface Creature extends Animal,Reptile
+{
+
+}
+class Crocodile implements Creature
+{
+    public void run()
+    {
+        SOP("Crocodile Running...");
+    }
+    public void swim()
+    {
+        SOP("Croc Swimming");
+    }
+}
+class Jaguar implements Creature
+{
+    public void run()
+    {
+        sout("Jaguar Running...");
+    }
+    public void swim()
+    {
+        sout("Jaguar Swimming");
+    }
+}
+
+class UseCreature
+{
+    public static void main(String []args)
+    {
+        Creature cr;
+        cr= new Crocodile();
+        cr.run();
+        cr.swim();
+        cr=new Jaguar();
+        cr.run();
+        cr.swim();
+    }
+}
+
+
+
+                    EXCEPTION HANDLING
+                    ==================
+
+
+
+Qn1: What is an EXCEPTION ?
+Ans1. In world of programming EXCEPTIONS are RUN TIME ERROR.
+
+Qn2: What Java does by default whenever an EXCEPTION occurs ?
+Ans2. If our code generate EXCEPTION, then java takes 2 actions:
+    a. It immediately termiantes the program
+    b. It displays the error message regarding the exception but that error massage is too typical for a non technical person to understand.
+
+
+Exception Handling Keywords:-
+=============================
+
+1. try
+2. catch
+3. throw
+4. throws
+5. finally
+
+SYNTAX OF try-catch
+-------------------
+
+........
+........
+try
+{
+    .........
+    .........
+    .........
+    .........
+}
+catch(<ExceptionClassName> <Obj_ref>){
+
+
+}
+
+
+
+                        EXCEPTION HIERARCHY
+                        ===================
+                
+
+
+Throwable is parent class of Exception .
+
+Throwable contain two derived class :-
+
+1. Error
+2. Exception
+
+
+1. Error
+--------
+
+int []arr = new int[1000000L];
+Gives:- OutofMemoryError
+
+It represents those Exceptions which are not ment to be handled by the developer or programmer .
+they are either Handled by JVM or OS, because they are System Generated Error. For ex, if the memory in heap area is low and we request java to create an array of vvery large size , the Java will generate OutofMemoryError.which is beyond the scope of programmer to handle.
+
+2. Exception
+------------
+
+This class represents those exceptions which can be and must be handled by the programmer in his program. All the exceptions classes which we have and we will learn in future will always belong to this Inheritance chain.
+
+a. RuntimeException
+    1. ArithemeticException
+
+    2. NoSuchEelementException
+        a. InputMismatchException
+
+    3. NumberFormateException
+        ( when we use wrapper classes and we use in it parse method during the conversion if it fails then it throws NumberFormateException).
+
+    4. IndexOutOfBoundException
+        a. ArrayIndexOutOfBoundException
+        b. StringIndexOutOfBoundException
+
+        eg: String str="Bhopal";
+            sop(str.charAt(7)); // throws StringIndexOutOfBoundException
+    
+    5. NullPointerException
+        eg: String str=null;
+            SOP(str.length()); throws NullPointerException
+
+            when we call method using null reference.
+
+b. IOException 
+    1.FileNotFoundException
+        when we want to do operation on file and that fie is not avilable on system.
+    2. EOFException
+         when we read the data after end of file.
+
+c. SQLException
+
+    
+
+Using Multiple Catches 
+----------------------
+
+SYNTAX:-
+
+try
+{
+    .........
+    .........
+    .........
+    .........
+}
+catch(ExceptionClassName1 ex)
+{
+    .........
+    .........
+}
+catch(ExceptionClassName2 ex)
+{
+    .........
+    .........
+}
+
+Java has a very strict rule while using multiple catch for a try block.
+
+They rule is that, a parent class of exception hierarchy cannot come before its child class.
+
+This is because a reference of parent class can easily point to the child class object and hence, the child class catch block will never run.
+
+// INCORRECT
+try
+{
+----
+----
+}
+catch(IOException e)
+{
+----
+----
+}
+catch(FileNotFoundException f)
+{
+----
+----
+}
+
+// CORRECT 
+try
+{
+----
+----
+}
+catch(FileNotFoundException f)
+{
+----
+----
+}
+catch(IOException e)
+{
+----
+----
+}
+
+
+
+Displaying The Description About The Exception:-
+------------------------------------------------
+
+Whenever an exception occurs in our try block, then Java does 2 things:
+1. It creates an object of the matching Exception class.
+2. It immediately moves out of the try block.
+
+whithin the Object , which java has created , it stores a lot of usefull information regarding the exception and as a programmer if we want to know these details/information then java has provided us SOME VERY IMPORTANT methods which we can call using these EXCEPTION objects.
+
+1. public String getMessage();
+        a. This method belongs to Throwable class.
+        b. This method returns a String which copntain the actual reasone / cause of the generated Exception.
+
+
+
