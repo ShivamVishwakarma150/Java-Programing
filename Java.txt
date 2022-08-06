@@ -2702,3 +2702,15 @@ whithin the Object , which java has created , it stores a lot of usefull informa
 
 
 
+Displaying Description Of An Exception :
+----------------------------------------
+
+1. public String getMessage(): this method belongs to the class Throwable and return a String containing the Java's ACTUAL REASON of the exception.
+
+2. public String toString():
+
+        a. This method belongs to the class Object. 
+
+        b. This means it is inherited by every Java class , be it predefined or user defined.
+
+        c. Whenever we pass any object ref as arg to System.out.println() or System.out.print() as argument then java AUTOMATICALLY CALL this toString() method.
