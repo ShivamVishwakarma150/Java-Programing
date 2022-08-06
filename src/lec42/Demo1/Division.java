@@ -8,7 +8,7 @@ class Division {
             int c = a / b;
             System.out.println("Div is " + c);
         } catch (Exception e) {
-            System.out.println("Exception occurred" + e.getMessage());
+            System.out.println("Exception occurred" + e);
         }
 
     }
