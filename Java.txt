@@ -2714,3 +2714,543 @@ Displaying Description Of An Exception :
         b. This means it is inherited by every Java class , be it predefined or user defined.
 
         c. Whenever we pass any object ref as arg to System.out.println() or System.out.print() as argument then java AUTOMATICALLY CALL this toString() method.
+
+Speical points About toString():
+
+1. As a java developer we must alsways override toString() method in our class and we should return STRING REPRESENTATION of our object's values from this method.
+
+2. If we do not override this method then Java calls Object's toString() method and that method returns hashCode value , which is although very impt for java but for users it is of no importance.
+
+3. Thus it is a stong adive to Java programmer's that they must override this method in their class ALWAYS. 
+
+
+
+
+
+
+class Person {
+    private String name;
+    private int age;
+
+    public Person(String str, int a) {
+        name = str;
+        age = a;
+    }
+
+    public String toString() {
+        return name + "," + age;
+    }
+}
+class UsePerson {
+    public static void main(String[] args) {
+        Person p = new Person("Vishal", 45);
+        System.out.println(p); // converted into p.toString()
+        // it return alphanumeric string.
+        // it generally gives encrypted form of object address.
+    }
+}
+
+output
+======
+vishal,45
+
+
+4. Similarily all exception classes have also overriden this method and they return 2 impt information from this method:
+    a. Name of the exception
+    b. Reason of the exception
+
+
+
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+3. public void printStackTrace():
+
+    a. This method belongs to Throwable class
+    b. This method alsways prints complete details about the exception and this detail includes:
+        i. Exception class name
+        ii. Error message
+        iii. Source code name
+        iv. Method name where exception is generated
+        v. Line number where exception is generated
+
+class Division {
+    public static void main(String[] args) {
+        try {
+            int a = Integer.parseInt(args[0]);
+            int b = Integer.parseInt(args[1]);
+            int c = a / b;
+            System.out.println("Div is " + c);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+}
+
+
+
+
+The "finally" Block
+===================
+
+try
+{
+    .........
+    .........
+    .........
+    .........
+    .........
+}
+catch(<SomeExceptionClassName> <obj_ref>)
+{
+    .......
+}
+// This code runs when no exception occurs
+// Exception is handled by catch block
+// But it will not run if the catch block is not able to handle the exception.
+
+finally // This part will now be executed in every case by Java.
+.......
+.......
+
+
+
+There are 2 sytaxed of Finally :-
+
+1.
+try
+{
+    ....
+    ....
+}
+catch(....)
+{
+    ....
+}
+finally
+{
+    ....
+}
+
+2. 
+try
+{
+    .....
+    .....
+}
+finally
+{
+    .....
+}
+
+
+
+
+CREATING CUSTOM EXCEPTION OR PROGRAMMER DEFINED EXCEPTIONS
+----------------------------------------------------------
+
+custom exception in Java aew those exception classes which are developed by a programmer as per his/her Projects requirment.
+
+To Create Custom exception class we have to do 2 things:
+
+A. we will have to inherit any predefined exception class. Generally we prefer inheriting Exception class.
+
+B. we should provide appropriate constructors in our class for aceepting / pasing the error messages to super classs constructor.
+
+
+
+STRING HANDLING
+===============
+
+In java has 3 classes for dealing with Strings.
+1.String // present from jdk 1.0 onwards
+2. StringBuffer // present from jdk 1.0 onwards
+3. String Builder // present from jdk 5.0 onwards so to understand its working we have to firt understand MULTITHREDING.
+
+
+String V/s StringBuffer
+-----------------------
+
+
+String objects in Java are IMMUTABLE while StringBuffer in Java are MUTABLE.
+
+IMMUTABLE :- Not changeable
+MUTABLE :- changeable
+
+What is IMMUTABLE ?
+-------------------
+
+IMMUTABLE means once initialized we can never change the contents of a String Object.
+
+String name = "Sachin";
+SOP(name); // Sachin
+
+name = name + "Kapoor"; // references played very well here
+SOP(name); // Sachin Kapoor
+
+
+STRING CONSTRUCTORS
+-------------------
+
+1. public String(): Non Paramterized constructor 
+
+Ex: String name= new String();
+    SOP(name.length()); // 0
+
+
+2. public String(String): kind of Copy Constructor
+
+Ex: String name=new String("Ashish");
+    SOP(name); // Ashish
+    SOP(name.length()); // 6
+
+
+What is the difference between the following two?
+1. String name = new String("Ashish");
+OR
+2. String name="Ashish";
+
+1):
+
+The first statement will create a new String object in the HEAP area, but the second statement will create a String (called String Literal) in another special area of memory call STRING POOL.
+
+
+String s1 = new String("Hello");
+String s2= new String("Hello");
+SOP(s1==s2); // false
+
+2):
+
+String s1="Hello";
+String s2="Hello";
+
+it goes to string constant pool and first search for Hello and then if there not any Hello present then it makes a Hello which has adress 3000 and if again we put "Hello" in s2 then it make a new reference for s2 but it point on same object.
+
+SOP(s1==s2); // true
+
+
+3. public String(char[])
+
+    EXAMPLE:
+        char [] arr = new char[]{'s','h','i','v','a','m'};
+        String name = arr; // ERROR: Incompatible types
+
+SOLUTION:
+        String name=new String(arr);
+        SOP(name); // shivam
+
+4. public String(char[],int,int)
+    1. int Stating index 
+    2. int No of Character
+
+    char []arr={'s','h','i','v','a','m'};
+    String name = new String(arr,2,4);
+    SOP(name); // ivam
+
+
+POPULAR MEHTODS OF STRING CLASS
+-------------------------------
+
+1. public int length(): Returns the length og the String
+EX:
+    String city="Bhopal";
+    SOP(city); // Bhopal
+    SOP(city.length()); // 6
+
+2. public char charAt(int): Accept an int as argument which indicates an index and returns the character present at this index.
+
+    Ex:
+        String str = "Welcome";
+        SOP(str.charAt(5)); // m
+        SOP(str.charAt(0));// w
+        SOP(str.charAt(10));// Exception: StringIndexOutOfBoundException
+
+
+3.  public boolean equals(Object)
+    public boolean equalsIgnoreCase(String)
+
+    String s1 = new String("Bhopal");
+    String s2 = new String("Bhopal");
+    String s3 = new String("bhopal");
+
+    SOP(s1.equals(s2)); // true
+    SOP(s1.equals(s3)); // false
+    SOP(s1.equalsIgnoreCase(s2)); // true
+    SOP(s1.equalsIgnoreCase(s3)); // true
+
+
+What is the importance of equals() method ?
+
+1. This method belongs to Object class.
+
+2. Thus it is inherited by every Java class (predefined / user defined both)
+
+3. By default this methood compares address of the calling object and the passed as argument.
+
+4. Thus it returns false even if the contents of both the object are same.
+
+5. But most of the Java classes have overriden this method, so they compare object's content rather thant its address.
+
+6. So we sould also override this method in our class, especially when we are dealing with COLLECTIONS.
+
+
+5. int compareTo(String)
+
+6. int compareToIgnoreCase(String)
+
+Example:
+
+String s1=new String("Bhopal");
+String s2=new String("Bhopal");
+String s3=new String("bhopal");
+SOP(s1.compareTo(s2)); // 0
+SOP(s1.compareTo(s3)); // -32
+SOP(s1.compareToIgnoreCase(s3)); // 0
+
+7. int IndexOf(char)
+
+8. int indexOf(String)
+
+Example:
+    String s1="Welcome";
+    SOP(s1.indexOf('e')); // 1
+    SOP(s1.indexOf("com")); // 3
+    SOP(s1.indexOf("me")); // 5
+    SOP(s1.indexOf("am")); // -1
+
+9. int lastIdnexOf(char)
+10. int lastIdnexOf(String)
+
+Example:
+
+String s1 = "Welcome";
+SOP(s1.lastIndexOf('e')); -> 6
+SOP(s1.lastIndexOf("com")); -> 3
+
+11. String substring(int,int);
+12. String substring(int);
+
+Example:
+
+String s1="INDUSTRY";
+SOP(s1.substring(2,6)); -> DUST 
+SOP(s1.substring(2)); -> DUSTRY
+
+
+13. String toLowerCase()
+14. String toUpperCase()
+
+Example:
+
+String s1="Bhopal";
+SOP(s1.toLowerCase()); // bhopal
+SOP(s1.toUpperCase()); // BHOPAL
+
+
+15. boolean isEmpty()
+
+    String str=new String();
+    SOP(str.isEmpty()); // true
+
+
+Guess the output?
+
+int a=10;
+
+How will you convert an int to String ?
+
+soln:
+    String str=a; // ERROR
+
+SOLUTION 1:
+
+int a=10;
+String str=a+"";
+SOP(str); // 25 as a string
+
+SOLUTION 2:
+
+int a=10;
+String str;
+str=String.valueOf(str); // Here valueOf method is an overloaded method and can accept any type of value and covert it into a string.
+
+SOLUTION 3:
+
+int a=10;
+String str;
+str=Integer.toString(a);
+
+
+The StringBuffer Class
+======================
+
+1. This class is also avilable int the package java.lang.
+2. It is advisable to use this class when we want to change the content very frequently.
+
+BAD PROGRAMMING!
+================
+
+String days="";
+days=days+"Sunday";
+days=days+"Monday";
+days=days+"Tuesday";
+.
+.
+SOP(days); SundayMonday....
+
+DO NOT USE GIVEN UPPER APPROACH RATHER FOR SUCH KIND OF CASES USE "StringBuffer" class.
+
+
+CONSTRUCTORS OF STRINGBUFFER 
+============================
+
+1. public StringBuffer(String):
+    
+    Accepts a String as argument, Store it in a StringBuffer object and reserves the space for 16 more characters.
+
+2. public StringBuffer(int): Accepts as int as argument and reserves space for the mentioned number of characters.
+
+3. public StringBuffer(): Creates a buffer of exactly 16 characters.
+
+Methods:
+=======
+
+1. int length()
+2. int capacity()
+
+
+StringBuffer sb="Sachin"; // ERROR
+
+StringBuffer sb=new StringBuffer("Sachin");
+
+eg:
+
+StringBuffer sb= new StringBuffer("Welcome");
+SOP(sb); // Welcome
+SOP(sb.length()); // 7
+SOP(sb.capacity()); // 23
+
+
+3. StringBuffer append(String);
+    StringBuffer(int);
+    ..
+    ..
+
+Example:
+=======
+
+StringBuffer sb= new StringBuffer("Welcome");
+SOP(sb); // welcome
+SOP(sb.length()); // 7
+SOP(sb.capacity()); // 23
+
+sb.append(" To Java");
+SOP(sb); // Welcome To Java
+SOP(sb.length()); // 15
+SOP(sb.capacity()); // 23
+
+sb.append(" Programming");
+SOP(sb); // Welcome to Java Programming
+SOP(sb.length()); // 27
+SOP(sb.capacity()); // 23*2+2=48
+
+4. void ensureCapacity(int)
+
+StringBuffer sb=new StringBuffer("welcome");
+
+SOP(sb); // welcome
+SOP(sb.length()); // 7
+SOP(sb.capacity()); // 23
+
+sb.ensureCapacity(50);
+SOP(sb); // welcome
+SOP(sb.length()); // 7
+SOP(sb.capacity()); // 50
+
+sb.ensureCapacity(80);
+
+SOP(sb); // welcome
+SOP(sb.length()); // 7
+SOP(sb.capacity()); // 102
+
+Rest all th methods that we have discussed with String class like :
+substring()
+charAt()
+etc
+are avilable in StringBuffer.
+But there are some extra methods also:
+
+
+
+1. StringBuffer reverse(): 
+StringBuffer sb= new StringBuffer("AMAR");
+sb.reverse();
+SOP(sb); // RAMA
+
+
+
+2. StringBuffer replace(int,int,String):
+
+StringBuffer sb=new StringBuffer("Hello World!");
+
+sb.replace(6,11,"Indians");
+
+SOP(sb); // Hello Indians!
+
+
+
+3. void setCharAt(int index,char ch):
+
+Example:
+========
+
+StringBuffer sb=new StringBuffer("LOVE");
+SOP(sb);
+
+sb.setCharAt(0,'D');
+SOP(sb); DOVE
+
+
+
+
+FILE HANDLING
+=============
+
+The term File Handling in programming refers to the operations which we can perform on FILES/FOLDERS through program.
+
+In Java , we do File Handling for performing two types of operations.
+
+A. Operations which allow is to access / manipulate FILE/FOLDER attributes.
+
+B. Operations which allow us to perform READ/WRITE operation on FILE.
+
+Points To Remember About File Handling In Java
+==============================================
+
+
+1. For Performing operation of category A Java provides us a class called "File".
+
+2. For Performing operations of category B, java provides us 4 classes which are "OutputStream","InputStream","Reader","Writer".
+
+3. All the above 4 classes are abstract by nature.
+
+4. "OutputStream" and "InputStream" deal with BINARY FILE and the classes "writer" and "reader" deal with text files.
+
+5. All these classes are avilable in the package "java.io".
+
+
+
+The "File" class
+
+constructor:
+
+public File(String)
+
+example:
+
+File f=new File("d:\\Assignments\\TestPapers\\TestPaper2.docx");
+
+OR
+
+file f=new File("d:/Assignments/Test Papers/Test Paper 2.docx");
